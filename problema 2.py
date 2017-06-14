@@ -12,8 +12,8 @@ def generador_v(vector_n, constante):
         nv = vector_n[x] / constante
         v.append(nv)
 
-    print("valores n: ", vector_n)
-    print("valores v: ", v)
+    # print("valores n: ", vector_n)
+    # print("valores v: ", v)
 
     return v
 
@@ -28,8 +28,8 @@ def generador_n(vector_v, constante):
         nn = vector_v[x] * constante
         n.append(nn)
 
-    print("valores v: ", vector_v)
-    print("valores n: ", n)
+    # print("valores v: ", vector_v)
+    # print("valores n: ", n)
 
     return n
 
@@ -67,11 +67,12 @@ def calculo_ro(b, u, lam, gam, v, n):
         fraccion1 = 1 / v
         fraccion2 = numerador / denominador
         ro = fraccion1 * fraccion2
-        print("Numerador: ", numerador)
-        print("Denominador: ", denominador)
-        print("fraccion 1: ", fraccion1)
-        print("fraccion 2: ", fraccion2)
-        print("Ro: ", ro)
+
+        # print("Numerador: ", numerador)
+        # print("Denominador: ", denominador)
+        # print("fraccion 1: ", fraccion1)
+        # print("fraccion 2: ", fraccion2)
+        # print("Ro: ", ro)
 
     except ZeroDivisionError:
         print('Division por cero')
@@ -120,7 +121,7 @@ def calculo_final(b, u, lam, gam, v, n):
 
     """ Calcular el valor real y el esperado """
 
-    ro = calculo_ro(b, u, lam, v, n)
+    ro = calculo_ro(b, u, lam, gam, v, n)
     vro = calculo_validador(u, lam, gam)
 
     print("Valor real: ", ro)
@@ -160,12 +161,14 @@ def main():
     vect_n = [100, 250, 380, 490, 550]
     nv = generador_v(vect_n, 0.5)
 
-    # experimento(configuracion, nv, vect_n)
+    experimento(configuracion, nv, vect_n)
+
+    print("###################################")
 
     vect_v = [70, 84, 96, 102, 158]
     nn = generador_n(vect_v, 500)
 
-    # experimento(configuracion, vect_v, nn)
+    experimento(configuracion, vect_v, nn)
 
     return 0
 
