@@ -9,11 +9,11 @@ def generador_v(vector_n, constante):
     v = []
 
     for x in range(len(vector_n)):
-        nv = vector_n[x] / constante
+        nv = vector_n[x] // constante  # // = Division entera
         v.append(nv)
 
-    print("valores n: ", vector_n)
-    print("valores v: ", v)
+    # print("valores n: ", vector_n)
+    # print("valores v: ", v)
 
     return v
 
@@ -28,8 +28,8 @@ def generador_n(vector_v, constante):
         nn = vector_v[x] * constante
         n.append(nn)
 
-    print("valores v: ", vector_v)
-    print("valores n: ", n)
+    # print("valores v: ", vector_v)
+    # print("valores n: ", n)
 
     return n
 
@@ -67,11 +67,12 @@ def calculo_ro(b, u, lam, gam, v, n):
         fraccion1 = 1 / v
         fraccion2 = numerador / denominador
         ro = fraccion1 * fraccion2
-        print("Numerador: ", numerador)
-        print("Denominador: ", denominador)
-        print("fraccion 1: ", fraccion1)
-        print("fraccion 2: ", fraccion2)
-        print("Ro: ", ro)
+
+        # print("Numerador: ", numerador)
+        # print("Denominador: ", denominador)
+        # print("fraccion 1: ", fraccion1)
+        # print("fraccion 2: ", fraccion2)
+        # print("Ro: ", ro)
 
     except ZeroDivisionError:
         print('Division por cero')
@@ -116,11 +117,11 @@ def graficador(datos_x, datos_y, titulo, titulo_x, titulo_y, ajuste_ejes=False):
         print("Vector vacio")
 
 
-def calculo_final(b, u, lam, gam, v, n):
+def metodo1(b, u, lam, gam, v, n):
 
     """ Calcular el valor real y el esperado """
 
-    ro = calculo_ro(b, u, lam, v, n)
+    ro = calculo_ro(b, u, lam, gam, v, n)
     vro = calculo_validador(u, lam, gam)
 
     print("Valor real: ", ro)
@@ -129,15 +130,73 @@ def calculo_final(b, u, lam, gam, v, n):
     return ro, vro
 
 
-def experimento(valores, vector_v, vector_n):
+def metodo2(valores, vector_v, vector_n):
+    """ Grupo fijo de valores e iterar con un N y un V, Valores: +β,-µ,-λ,+γ """
 
-    """ La idea es tener un grupo fijo de valores e iterar con un N y un V, Valores: todos menos v y n 	"""
+    salida_resultado = []
+
+    for x in range(len(vector_n)):
+        ro = calculo_ro(valores[0], valores[1], valores[2], valores[3], vector_v[x], vector_n[x])
+        salida_resultado.append(ro)
+
+    salida_esperado = calculo_validador(valores[1], valores[2], valores[3])
+    return salida_resultado, salida_esperado
+
+
+def metodo3_beta(vector_b, u, lam, gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
 
     salida_resultado = []
     salida_esperado = []
 
-    for x in range(len(vector_n)):
-        ro, rvo = calculo_final(valores[0], valores[1], valores[2], valores[3], vector_v[x], vector_n[x])
+    for x in range(len(vector_b)):
+        ro, rvo = metodo1(vector_b[x], u, lam, gam, v, n)
+        salida_resultado.append(ro)
+        salida_esperado.append(rvo)
+
+    return salida_resultado, salida_esperado
+
+
+def metodo3_mu(b, vector_u, lam, gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
+
+    salida_resultado = []
+    salida_esperado = []
+
+    for x in range(len(vector_u)):
+        ro, rvo = metodo1(b, vector_u[x], lam, gam, v, n)
+        salida_resultado.append(ro)
+        salida_esperado.append(rvo)
+
+    return salida_resultado, salida_esperado
+
+
+def metodo3_lambda(b, u, vector_lam, gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
+
+    salida_resultado = []
+    salida_esperado = []
+
+    for x in range(len(vector_lam)):
+        ro, rvo = metodo1(b, u, vector_lam[x], gam, v, n)
+        salida_resultado.append(ro)
+        salida_esperado.append(rvo)
+
+    return salida_resultado, salida_esperado
+
+
+def metodo3_gamma(b, u, lam, vector_gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
+
+    salida_resultado = []
+    salida_esperado = []
+
+    for x in range(len(vector_gam)):
+        ro, rvo = metodo1(b, u, lam,vector_gam[x], v, n)
         salida_resultado.append(ro)
         salida_esperado.append(rvo)
 
@@ -160,12 +219,14 @@ def main():
     vect_n = [100, 250, 380, 490, 550]
     nv = generador_v(vect_n, 0.5)
 
-    # experimento(configuracion, nv, vect_n)
+    experimento(configuracion, nv, vect_n)
+
+    print("###################################")
 
     vect_v = [70, 84, 96, 102, 158]
     nn = generador_n(vect_v, 500)
 
-    # experimento(configuracion, vect_v, nn)
+    experimento(configuracion, vect_v, nn)
 
     return 0
 
