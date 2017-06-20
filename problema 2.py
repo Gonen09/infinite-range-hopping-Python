@@ -143,6 +143,66 @@ def metodo2(valores, vector_v, vector_n):
     return salida_resultado, salida_esperado
 
 
+def metodo3_beta(vector_b, u, lam, gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
+
+    salida_resultado = []
+    salida_esperado = []
+
+    for x in range(len(vector_b)):
+        ro, rvo = metodo1(vector_b[x], u, lam, gam, v, n)
+        salida_resultado.append(ro)
+        salida_esperado.append(rvo)
+
+    return salida_resultado, salida_esperado
+
+
+def metodo3_mu(b, vector_u, lam, gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
+
+    salida_resultado = []
+    salida_esperado = []
+
+    for x in range(len(vector_u)):
+        ro, rvo = metodo1(b, vector_u[x], lam, gam, v, n)
+        salida_resultado.append(ro)
+        salida_esperado.append(rvo)
+
+    return salida_resultado, salida_esperado
+
+
+def metodo3_lambda(b, u, vector_lam, gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
+
+    salida_resultado = []
+    salida_esperado = []
+
+    for x in range(len(vector_lam)):
+        ro, rvo = metodo1(b, u, vector_lam[x], gam, v, n)
+        salida_resultado.append(ro)
+        salida_esperado.append(rvo)
+
+    return salida_resultado, salida_esperado
+
+
+def metodo3_gamma(b, u, lam, vector_gam, v, n):
+
+    """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
+
+    salida_resultado = []
+    salida_esperado = []
+
+    for x in range(len(vector_gam)):
+        ro, rvo = metodo1(b, u, lam,vector_gam[x], v, n)
+        salida_resultado.append(ro)
+        salida_esperado.append(rvo)
+
+    return salida_resultado, salida_esperado
+
+
 def main():
 
     # Valores iniciales
