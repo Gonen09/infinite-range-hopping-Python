@@ -9,7 +9,7 @@ def generador_v(vector_n, constante):
     v = []
 
     for x in range(len(vector_n)):
-        nv = vector_n[x] / constante
+        nv = vector_n[x] // constante  # // = Division entera
         v.append(nv)
 
     # print("valores n: ", vector_n)
@@ -117,7 +117,7 @@ def graficador(datos_x, datos_y, titulo, titulo_x, titulo_y, ajuste_ejes=False):
         print("Vector vacio")
 
 
-def calculo_final(b, u, lam, gam, v, n):
+def metodo1(b, u, lam, gam, v, n):
 
     """ Calcular el valor real y el esperado """
 
@@ -130,18 +130,16 @@ def calculo_final(b, u, lam, gam, v, n):
     return ro, vro
 
 
-def experimento(valores, vector_v, vector_n):
-
-    """ La idea es tener un grupo fijo de valores e iterar con un N y un V, Valores: todos menos v y n 	"""
+def metodo2(valores, vector_v, vector_n):
+    """ Grupo fijo de valores e iterar con un N y un V, Valores: +β,-µ,-λ,+γ """
 
     salida_resultado = []
-    salida_esperado = []
 
     for x in range(len(vector_n)):
-        ro, rvo = calculo_final(valores[0], valores[1], valores[2], valores[3], vector_v[x], vector_n[x])
+        ro = calculo_ro(valores[0], valores[1], valores[2], valores[3], vector_v[x], vector_n[x])
         salida_resultado.append(ro)
-        salida_esperado.append(rvo)
 
+    salida_esperado = calculo_validador(valores[1], valores[2], valores[3])
     return salida_resultado, salida_esperado
 
 
