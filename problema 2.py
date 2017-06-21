@@ -124,9 +124,6 @@ def metodo1(b, u, lam, gam, v, n):
     ro = calculo_ro(b, u, lam, gam, v, n)
     vro = calculo_validador(u, lam, gam)
 
-    print("Valor real: ", ro)
-    print("Valor esperado: ", vro)
-
     return ro, vro
 
 
@@ -144,61 +141,77 @@ def metodo2(valores, vector_v, vector_n):
 
 
 def metodo3_beta(vector_b, u, lam, gam, v, n):
-
     """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
 
     salida_resultado = []
     salida_esperado = []
 
     for x in range(len(vector_b)):
+        print("Beta: ", vector_b[x], " Mu:", u, " Lambda: ", lam, " Gamma: ", gam, " Volumen: ", v, " Particulas: ", n)
+
         ro, rvo = metodo1(vector_b[x], u, lam, gam, v, n)
         salida_resultado.append(ro)
         salida_esperado.append(rvo)
+
+        print(" ")
+        print(" ")
 
     return salida_resultado, salida_esperado
 
 
 def metodo3_mu(b, vector_u, lam, gam, v, n):
-
     """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
 
     salida_resultado = []
     salida_esperado = []
 
     for x in range(len(vector_u)):
+        print("Beta: ", b, " Mu:", vector_u[x], " Lambda: ", lam, " Gamma: ", gam, " Volumen: ", v, " Particulas: ", n)
+
         ro, rvo = metodo1(b, vector_u[x], lam, gam, v, n)
         salida_resultado.append(ro)
         salida_esperado.append(rvo)
+
+        print(" ")
+        print(" ")
 
     return salida_resultado, salida_esperado
 
 
 def metodo3_lambda(b, u, vector_lam, gam, v, n):
-
     """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
 
     salida_resultado = []
     salida_esperado = []
 
     for x in range(len(vector_lam)):
+        print("Beta: ", b, " Mu:", u, " Lambda: ", vector_lam[x], " Gamma: ", gam, " Volumen: ", v, " Particulas: ", n)
+
         ro, rvo = metodo1(b, u, vector_lam[x], gam, v, n)
         salida_resultado.append(ro)
         salida_esperado.append(rvo)
+
+        print(" ")
+        print(" ")
 
     return salida_resultado, salida_esperado
 
 
 def metodo3_gamma(b, u, lam, vector_gam, v, n):
-
     """ Grupo fijo de valores con un vector iterable, Valores: +β,-µ,-λ,+γ,V,N """
 
     salida_resultado = []
     salida_esperado = []
 
     for x in range(len(vector_gam)):
-        ro, rvo = metodo1(b, u, lam,vector_gam[x], v, n)
+        print("Beta: ", b, " Mu:", u, " Lambda: ", lam, " Gamma: ", vector_gam[x], " Volumen: ", v, " Particulas: ", n)
+
+        ro, rvo = metodo1(b, u, lam, vector_gam[x], v, n)
         salida_resultado.append(ro)
         salida_esperado.append(rvo)
+
+        print(" ")
+        print(" ")
 
     return salida_resultado, salida_esperado
 
