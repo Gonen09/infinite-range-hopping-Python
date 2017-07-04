@@ -37,7 +37,7 @@ def grafica(x, y, foto=False):
         # define plot size in inches (width, height) & resolution(DPI)
         # plt.figure(figsize=(20, 10), dpi=100)
         # plt.figure(figsize=(2,2))
-        
+
         if foto == True:
             fig = plt.gcf()
             fig.set_size_inches(18.5, 10.5)
