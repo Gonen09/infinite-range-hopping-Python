@@ -125,11 +125,12 @@ class AnimacionDensidad:
         self.fig = plt.figure()
         self.ax = plt.axes(xlim=(-10, 15), ylim=(-1, 4))
         self.line, = self.ax.plot([], [],'k.', lw=2)
-        self.ax.set_title('ro vs mu')
-        self.ax.set_xlabel('mu')
-        self.ax.set_ylabel('ro')
-        self.ax.legend(labels="funcion ro")
-        self.text = self.ax.text(-7, 3, r'an equation: $E=mc^2$', fontsize=15)
+        self.ax.set_title(r'$\rho$ vs $\mu$')
+        self.ax.set_xlabel(r'$\mu$')
+        self.ax.set_ylabel(r'$\rho$')
+        self.ax.legend(labels=r"funcion $\rho$")
+        self.beta = self.ax.text(-8, 3.5, r'$\beta$: ', fontsize=15)
+        self.lam = self.ax.text(-8, 3, r'$\lambda$: ', fontsize=15)
         self.densidad = 1.0
 
     def init(self):
@@ -138,9 +139,8 @@ class AnimacionDensidad:
 
     def actualizacion(self, i):
         if self.funcion.densidad_punto<1000:
-            # print self.funcion.densidad_punto
-            #self.ax.legend(labels=str(self.funcion.densidad_punto))
-            
+            self.beta.set_text(r'$\beta$: '+ str(round(self.funcion.b,2)))
+            self.lam.set_text(r'$\lambda$: '+ str(round(self.funcion.lam,2)))
             self.funcion.densidad_punto += self.densidad
             self.funcion.funcionRo()
         self.line.set_data(self.funcion.u, self.funcion.ro)
@@ -148,8 +148,18 @@ class AnimacionDensidad:
 
     def actualizacion1(self, i):
         if self.funcion.b < 50:
-            self.text.set_text(r'\gamma'+ str(round(self.funcion.b,2)))
+            self.beta.set_text(r'$\beta$: '+ str(round(self.funcion.b,2)))
+            self.lam.set_text(r'$\lambda$: '+ str(round(self.funcion.lam,2)))
             self.funcion.b += 0.1
+            self.funcion.funcionRo()
+        self.line.set_data(self.funcion.u, self.funcion.ro)
+        return self.line,
+
+    def actualizacion2(self, i):
+        if self.funcion.lam < 5:
+            self.beta.set_text(r'$\beta$: '+ str(round(self.funcion.b,2)))
+            self.lam.set_text(r'$\lambda$: '+ str(round(self.funcion.lam,2)))
+            self.funcion.lam += 0.1
             self.funcion.funcionRo()
         self.line.set_data(self.funcion.u, self.funcion.ro)
         return self.line,
@@ -202,6 +212,12 @@ anim = animation.FuncAnimation(animacionB.fig, animacionB.actualizacion1,init_fu
 animacionD = AnimacionDensidad()
 animacionD.funcion.densidad_punto = 2
 anim1 = animation.FuncAnimation(animacionD.fig, animacionD.actualizacion,init_func=animacionD.init,frames=200, interval=120, blit=False)
+
+
+animacionL = AnimacionDensidad()
+animacionL.funcion.densidad_punto = 150.0
+animacionL.funcion.lam = 0.01
+anim2 = animation.FuncAnimation(animacionL.fig, animacionL.actualizacion2,init_func=animacionL.init, frames=80, interval=80, blit=False)
 
 # line_ani = animation.FuncAnimation(animacionD.fig, animacionD.actualizacion, 25, interval=200, blit=True, repeat=True)
 
