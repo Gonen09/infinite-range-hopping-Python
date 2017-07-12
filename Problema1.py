@@ -113,7 +113,7 @@ class FuncionRo(object):
                 print('Division por cero')
                 break
             except OverflowError:
-                print('overflow')
+                #print('overflow')
                 break
         return x, y
 
@@ -123,6 +123,7 @@ class AnimacionDensidad:
         self.funcion = FuncionRo()
         # self.figura = plt.figure()
         self.fig = plt.figure()
+        self.fig.set_size_inches(8, 6)
         self.ax = plt.axes(xlim=(-10, 15), ylim=(-1, 4))
         self.line, = self.ax.plot([], [],'k.', lw=2)
         self.ax.set_title(r'$\rho$ vs $\mu$')
