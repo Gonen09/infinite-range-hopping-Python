@@ -364,3 +364,203 @@ def metodo4(vector_rho, vector_gamma, lamdda):
     return mu
 
 
+def grafico_3D_malla_rho_lam(vector_mu, lamdda, vector_gamma, titulo, lyx, lyy, lyz):
+    # Creamos la figura
+    fig = plt.figure(figsize=[15, 10])  # Tamaño figura
+    ax = fig.gca(projection='3d')  # Dibujar en 3D
+
+    # Informacion grafico
+    plt.title(titulo, fontsize=20, fontweight='bold', color='b')
+    ax.set_xlabel(lyx, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_ylabel(lyy, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_zlabel(lyz, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    # Titulo, tamaño texto, tipo texto, color texto, espaciado texto
+
+    # Texto flotante
+    # ax.text2D(0.5, 0.5,"Texto 2D", fontsize=20, fontweight='bold', color='b', transform=ax.transAxes)
+    # posicion x, posicion y, titulo, tamaño texto, tipo texto, color texto, ubicar
+
+    # Cargar datos
+    X = vector_mu
+    Y = vector_gamma
+
+    # Obtenemos las coordenadas a partir de los vectores creados
+    X, Y = np.meshgrid(X, Y)  # Malla
+
+    # Fomula a evaluar (rho)
+    Z = (X - lamdda) / (2 * Y)
+
+    # Graficar alambrado
+    ax.plot_wireframe(X, Y, Z, linewidth=2, color='b')
+
+    # Limites ejes
+    # ax.set_xlim(0, 10)
+    # ax.set_ylim(0, 10)
+    # ax.set_zlim(0, 10)
+
+    # Fijar la posicion inicial de la grafica
+    # ax.view_init(45, -35)
+    # elev , azim
+
+    # elev = almacena el ángulo de elevación en el plano z.
+    # Azim = almacena el ángulo azimutal en el plano x, y.
+
+    # Acercamiento
+    # ax.dist = 10
+
+    # Mostrar grafico
+    plt.show()
+
+
+def grafico_3D_plano_rho_lam(vector_mu, lamdda, vector_gamma, titulo, lyx, lyy, lyz):
+    # Creamos la figura
+    fig = plt.figure(figsize=[15, 10])  # Tamaño figura
+    ax = fig.gca(projection='3d')  # Dibujar en 3D
+
+    # Informacion grafico
+    plt.title(titulo, fontsize=20, fontweight='bold', color='b')
+    ax.set_xlabel(lyx, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_ylabel(lyy, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_zlabel(lyz, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    # Titulo, tamaño texto, tipo texto, color texto, espaciado texto
+
+    # Texto flotante
+    # ax.text2D(0.5, 0.5,"Texto 2D", fontsize=20, fontweight='bold', color='b', transform=ax.transAxes)
+    # posicion x, posicion y, titulo, tamaño texto, tipo texto, color texto, ubicar
+
+    # Cargar datos
+    X = vector_mu
+    Y = vector_gamma
+
+    # Obtenemos las coordenadas a partir de los vectores creados
+    X, Y = np.meshgrid(X, Y)  # Malla
+
+    # Fomula a evaluar (rho)
+    Z = (X - lamdda) / (2 * Y)
+
+    # Graficar superficie
+    surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    # surf = ax.plot_surface(Z, Y, X, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    # cm = plasma,inferno,Blues,hot,BrBG,RdGy,RdBu,cool,coolwarm,bwr,hsv,jet,nipy_spectral,gist_ncar
+
+    # Limites ejes
+    # ax.set_xlim(0, 10)
+    # ax.set_ylim(0, 10)
+    # ax.set_zlim(0, 10)
+
+    # Insertar barra de color que mapea los valores a colores
+    fig.colorbar(surf, shrink=0.5, aspect=10)
+
+    # Fijar la posicion inicial de la grafica
+    # ax.view_init(45, -35) # 30, -180
+    # elev , azim
+
+    # elev = almacena el ángulo de elevación en el plano z.
+    # Azim = almacena el ángulo azimutal en el plano x, y.
+
+    # Acercamiento
+    # ax.dist = 10
+
+    # Mostrar grafico
+    plt.show()
+
+
+def grafico_3D_malla_rho_mu(mu, vector_lamdda, vector_gamma, titulo, lyx, lyy, lyz):
+    # Creamos la figura
+    fig = plt.figure(figsize=[15, 10])  # Tamaño figura
+    ax = fig.gca(projection='3d')  # Dibujar en 3D
+
+    # Informacion grafico
+    plt.title(titulo, fontsize=20, fontweight='bold', color='b')
+    ax.set_xlabel(lyx, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_ylabel(lyy, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_zlabel(lyz, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    # Titulo, tamaño texto, tipo texto, color texto, espaciado texto
+
+    # Texto flotante
+    # ax.text2D(0.5, 0.5,"Texto 2D", fontsize=20, fontweight='bold', color='b', transform=ax.transAxes)
+    # posicion x, posicion y, titulo, tamaño texto, tipo texto, color texto, ubicar
+
+    # Cargar datos
+    X = vector_lamdda
+    Y = vector_gamma
+
+    # Obtenemos las coordenadas a partir de los vectores creados
+    X, Y = np.meshgrid(X, Y)  # Malla
+
+    # Fomula a evaluar (rho)
+    Z = (mu - X) / (2 * Y)
+
+    # Graficar alambrado
+    ax.plot_wireframe(X, Y, Z, linewidth=2, color='b')
+
+    # Limites ejes
+    # ax.set_xlim(0, 10)
+    # ax.set_ylim(0, 10)
+    # ax.set_zlim(0, 10)
+
+    # Fijar la posicion inicial de la grafica
+    # ax.view_init(45, -35)
+    # elev , azim
+
+    # elev = almacena el ángulo de elevación en el plano z.
+    # Azim = almacena el ángulo azimutal en el plano x, y.
+
+    # Acercamiento
+    # ax.dist = 10
+
+    # Mostrar grafico
+    plt.show()
+
+
+def grafico_3D_plano_rho_mu(mu, vector_lamdda, vector_gamma, titulo, lyx, lyy, lyz):
+    # Creamos la figura
+    fig = plt.figure(figsize=[15, 10])  # Tamaño figura
+    ax = fig.gca(projection='3d')  # Dibujar en 3D
+
+    # Informacion grafico
+    plt.title(titulo, fontsize=20, fontweight='bold', color='b')
+    ax.set_xlabel(lyx, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_ylabel(lyy, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    ax.set_zlabel(lyz, fontsize=20, fontweight='bold', color='b', labelpad=30)
+    # Titulo, tamaño texto, tipo texto, color texto, espaciado texto
+
+    # Texto flotante
+    # ax.text2D(0.5, 0.5,"Texto 2D", fontsize=20, fontweight='bold', color='b', transform=ax.transAxes)
+    # posicion x, posicion y, titulo, tamaño texto, tipo texto, color texto, ubicar
+
+    # Cargar datos
+    X = vector_lamdda
+    Y = vector_gamma
+
+    # Obtenemos las coordenadas a partir de los vectores creados
+    X, Y = np.meshgrid(X, Y)  # Malla
+
+    # Fomula a evaluar (rho)
+    Z = (mu - X) / (2 * Y)
+
+    # Graficar superficie
+    surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    # surf = ax.plot_surface(Z, Y, X, cmap=cm.coolwarm, linewidth=0, antialiased=False)
+    # cm = plasma,inferno,Blues,hot,BrBG,RdGy,RdBu,cool,coolwarm,bwr,hsv,jet,nipy_spectral,gist_ncar
+
+    # Limites ejes
+    # ax.set_xlim(0, 10)
+    # ax.set_ylim(0, 10)
+    # ax.set_zlim(0, 10)
+
+    # Insertar barra de color que mapea los valores a colores
+    fig.colorbar(surf, shrink=0.5, aspect=10)
+
+    # Fijar la posicion inicial de la grafica
+    # ax.view_init(45, -35) # 30, -180
+    # elev , azim
+
+    # elev = almacena el ángulo de elevación en el plano z.
+    # Azim = almacena el ángulo azimutal en el plano x, y.
+
+    # Acercamiento
+    # ax.dist = 10
+
+    # Mostrar grafico
+    plt.show()
